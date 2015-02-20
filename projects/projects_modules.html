@@ -1,0 +1,22 @@
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+    {{$state.current.data.pageTitle}}
+</h3>
+<div class="page-bar">
+    <!--BEGIN BREADCRUMB-->
+    <div data-ng-include="'layout/breadcrumb/breadcrumb.html'" data-ng-controller="BreadcrumbController" class="page-bar">
+    </div>
+    <!--END BREADCRUMB-->
+</div>
+<!-- END PAGE HEADER-->
+<!--BEGIN PAGE CONTENT-->
+<accordion close-others="oneAtATime">
+    <accordion-group ng-repeat="module in modules" >
+        <accordion-heading >
+            {{module.name}} <a style="float: right;" href="">delete</a><a style="float: right;" href="">edit&nbsp;&nbsp;</a>
+        </accordion-heading>
+        Module details here...
+        <a href="#/module_general/{{project.id}}">More about {{module.name}}...</a>
+    </accordion-group>
+</accordion>
+<!--END PAGE CONTENT-->

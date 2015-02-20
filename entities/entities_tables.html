@@ -1,0 +1,68 @@
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+    {{$state.current.data.pageTitle}}
+</h3>
+<div class="page-bar">
+    <!--BEGIN BREADCRUMB-->
+    <div data-ng-include="'layout/breadcrumb/breadcrumb.html'" data-ng-controller="BreadcrumbController" class="page-bar">
+    </div>
+    <!--END BREADCRUMB-->
+</div>
+<!-- END PAGE HEADER-->
+<!--BEGIN PAGE CONTENT-->
+<accordion close-others="oneAtATime">
+    <accordion-group heading="{{table.name}} " ng-repeat="table in tables">
+        <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+            <thead>
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Type
+                </th>
+                <th>
+                    Nullable
+                </th>
+                <th>
+                   Primary
+                </th>
+                <th>
+                    Unique
+                </th>
+                <th>
+                    Index
+                </th>
+                <th>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><span editable-text="table.name" e-form="routeform">{{ table.name || 'Enter table name' }}</span></td>
+                <td><span editable-text="table.type" e-form="routeform">{{ table.type || 'Enter table type' }}</span></td>
+                <td><span editable-text="table.nullable" e-form="routeform">{{ table.nullable || 'Empty' }}</span></td>
+                <td><span editable-text="table.primary" e-form="routeform">{{ table.primary || 'Empty' }}</span></td>
+                <td><span editable-text="table.unique" e-form="routeform">{{ table.unique || 'Empty' }}</span></td>
+                <td><span editable-text="table.index" e-form="routeform">{{ table.index || 'Empty' }}</span></td>
+                <td style="white-space: nowrap">
+                    <!-- form -->
+                    <form editable-form name="tableform" onbeforesave="saveTable($data, user.id)" ng-show="tableform.$visible" class="form-buttons form-inline" shown="inserted == table">
+                        <button type="submit" ng-disabled="tableform.$waiting" class="btn btn-primary">
+                            save
+                        </button>
+                        <button type="button" ng-disabled="tableform.$waiting" ng-click="tableform.$cancel()" class="btn btn-default">
+                            cancel
+                        </button>
+                    </form>
+                    <div class="buttons" ng-show="!tableform.$visible">
+                        <button class="btn btn-primary" ng-click="tableform.$show()">edit</button>
+                        <button class="btn btn-danger" ng-click="removeTable($index)">delete</button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </accordion-group>
+</accordion>
+<!--END PAGE CONTENT-->

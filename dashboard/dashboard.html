@@ -1,0 +1,18 @@
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title page-full-width">
+    {{$state.current.data.pageTitle}}
+</h3>
+<div class="page-bar">
+    <!--BEGIN BREADCRUMB-->
+    <div data-ng-include="'layout/breadcrumb/breadcrumb.html'" data-ng-controller="BreadcrumbController" class="page-bar">
+    </div>
+</div>
+<!-- END PAGE HEADER-->
+<!-- BEGIN PAGE CONTENT-->
+<accordion close-others="oneAtATime">
+    <accordion-group heading="{{project.name}}" ng-repeat="project in projects">
+        Project details here
+        <a href="#/projects_general/{{project.id}}">More on {{project.name}}...</a>
+    </accordion-group>
+</accordion>
+<!--END PAGE CONTENT-->

@@ -1,0 +1,11 @@
+<div class="page-bar">
+    <ul class="page-breadcrumb">
+        <i class="fa fa-home"></i>
+        <li ng-repeat="crumb in crumbs">
+            <a href="{{crumb.link}}">{{crumb.name}}</a>
+            <i class="fa fa-angle-right" ng-show="crumbs.length > 1"></i>
+        </li>
+        <li><a>{{$state.current.data.pageTitle}}</a></li>
+
+    </ul>
+</div>

@@ -1,0 +1,34 @@
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+    {{$state.current.data.pageTitle}}
+</h3>
+<div class="page-bar">
+    <!--BEGIN BREADCRUMB-->
+    <div data-ng-include="'layout/breadcrumb/breadcrumb.html'" data-ng-controller="BreadcrumbController" class="page-bar">
+    </div>
+    <!--END BREADCRUMB-->
+</div>
+<!-- END PAGE HEADER-->
+<!--BEGIN PAGE CONTENT-->
+<div class="portlet light">
+    <div class="portlet-body">
+
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td style="width:45%">
+                            Entity Name
+                        </td>
+                        <td style="width:55%">
+                            <a href="#" id="entity_name" editable-text="entity.name">
+                                {{ entity.name || 'Entity X' }} </a>
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!--END PAGE CONTENT-->

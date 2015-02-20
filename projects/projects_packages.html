@@ -1,0 +1,106 @@
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+    {{$state.current.data.pageTitle}}
+</h3>
+<div class="page-bar">
+    <!--BEGIN BREADCRUMB-->
+    <div data-ng-include="'layout/breadcrumb/breadcrumb.html'" data-ng-controller="BreadcrumbController" class="page-bar">
+    </div>
+    <!--END BREADCRUMB-->
+</div>
+<!-- END PAGE HEADER-->
+<!--BEGIN PAGE CONTENT-->
+<div >
+    <div class="table-toolbar">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="btn-group">
+                    <button class="btn btn-default" ng-click="createPackage()">Add Package</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <accordion close-others="oneAtATime">
+        <accordion-group  ng-repeat="package in packages">
+            <accordion-heading>
+                {{package.name}}
+            </accordion-heading>
+            <span style="float: right;">
+               <tr> <div class="btn-edit">
+                    <button type="button" class="btn btn-default" ng-show="!packageForm.$visible" ng-click="packageForm.$show()">
+                        edit
+                    </button>
+                    <button class="btn btn-danger"  ng-show="!packageForm.$visible" ng-click="removePackage($index)">
+                        delete
+                    </button>
+                </div>
+               </tr>
+            </span>
+            <form editable-form name="packageForm" onaftersave="saveTable()" oncancel="cancel()">
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <td style="width:45%">
+                        Package Name
+                    </td>
+                    <td style="width:55%">
+                        <a href="#" id="package_name" editable-text="package.name" e-form="packageForm">
+                            {{ package.name }} </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:45%">
+                        Package Version
+                    </td>
+                    <td style="width:55%">
+                        <a href="#" id="package_version" editable-text="package.version" e-form="packageForm">
+                            {{ package.version || '2.0' }} </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+
+                    </td>
+                    <td>
+                        <a href="#" editable-checklist="package.options" e-form="packageForm" e-ng-options="p.value as p.text for p in packageOptions">
+                            {{showOptions() }}
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Providers</td>
+                    <td>
+                            <a href="#" editable-textarea="package.provider" e-form="packageForm" e-rows="7" e-cols="40">{{ package.provider || 'Enter providers' }}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Aliases</td>
+                    <td>
+                        <a href="#" editable-textarea="package.aliases" e-form="packageForm" e-rows="7" e-cols="40">{{ package.aliases || 'Enter aliases' }}</a>
+                    </td>
+                </tr>
+            </table>
+                <div class="btn-form" ng-show="packageForm.$visible">
+                    <button type="submit" ng-disabled="packageForm.$waiting" class="btn btn-primary">save</button>
+                    <button type="button" ng-disabled="packageForm.$waiting" ng-click="packageForm.$cancel()" class="btn btn-default">cancel</button>
+                </div>
+            </form>
+        </accordion-group>
+    </accordion>
+</div>
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title">I'm a modal!</h3>
+    </div>
+    <div class="modal-body">
+        <table class="table table-bordered table-striped">
+            <tr><td>
+        <a href="#" id="pack_name" editable-text="pack" >
+            {{ pack || 'Enter package name' }} </a></td></tr>
+            </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">OK</button>
+        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+</script>
+<!--END PAGE CONTENT-->

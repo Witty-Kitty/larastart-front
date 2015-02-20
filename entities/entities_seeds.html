@@ -1,0 +1,60 @@
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+    {{$state.current.data.pageTitle}}
+</h3>
+<div class="page-bar">
+    <!--BEGIN BREADCRUMB-->
+    <div data-ng-include="'layout/breadcrumb/breadcrumb.html'" data-ng-controller="BreadcrumbController" class="page-bar">
+    </div>
+    <!--END BREADCRUMB-->
+</div>
+<!-- END PAGE HEADER-->
+<!--BEGIN PAGE CONTENT-->
+<accordion close-others="oneAtATime">
+    <accordion-group heading="{{seed.name}} " ng-repeat="seed in seeds">
+            Name:  <a href="#" id="seed_name" editable-text="seed.name"> {{ seed.name }}</a>
+            Records: <a href="#" id="records" editable-text="seed.records"> {{ seed.records || 'empty' }}</a>
+
+            <br/><br/>
+
+        <table class="table table-bordered table-striped">
+                    <thead>
+            <tr>
+                <th style="width:33%">
+                    Field
+                </th>
+                <th style="width:33%">
+                   Seeds
+                </th>
+                <th style="width:33%">
+                   Sample
+                </th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><span editable-text="seed.field" e-form="seedsform">{{ seed.field || 'Enter seed field' }}</span></td>
+                <td><span editable-text="seed.seeds" e-form="seedsform">{{ seed.seeds || 'Enter seed seeds' }}</span></td>
+                <td><span editable-text="seed.sample" e-form="seedsform">{{ seed.sample || 'Enter seed sample' }}</span></td>
+                <td style="white-space: nowrap">
+                    <!-- form -->
+                    <form editable-form name="seedsform" onbeforesave="saveSeeds($data, user.id)" ng-show="seedsform.$visible" class="form-buttons form-inline" shown="inserted == seed">
+                        <button type="submit" ng-disabled="seedsform.$waiting" class="btn btn-primary">
+                            save
+                        </button>
+                        <button type="button" ng-disabled="seedsform.$waiting" ng-click="seedsform.$cancel()" class="btn btn-default">
+                            cancel
+                        </button>
+                    </form>
+                    <div class="buttons" ng-show="!seedsform.$visible">
+                        <button class="btn btn-primary" ng-click="seedsform.$show()">edit</button>
+                        <button class="btn btn-danger" ng-click="removeSeeds($index)">delete</button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </accordion-group>
+</accordion>
+<!--END PAGE CONTENT-->

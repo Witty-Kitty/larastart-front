@@ -1,0 +1,74 @@
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+    Views
+</h3>
+<div class="page-bar">
+    <!--BEGIN BREADCRUMB-->
+    <div data-ng-include="'layout/breadcrumb/breadcrumb.html'" data-ng-controller="BreadcrumbController" class="page-bar">
+    </div>
+    <!--END BREADCRUMB-->
+</div>
+<!-- END PAGE HEADER-->
+<!--BEGIN PAGE CONTENT-->
+<accordion close-others="oneAtATime">
+    <accordion-group heading="{{view.name}} " ng-repeat="view in views">
+        <span style="float: right;">
+               <tr> <div class="btn-edit">
+                   <button type="button" class="btn btn-default" ng-show="!viewsForm.$visible" ng-click="viewsForm.$show()">
+                       edit
+                   </button>
+                   <button class="btn btn-danger"  ng-show="!viewsForm.$visible" ng-click="removeView($index)">
+                       delete
+                   </button>
+               </div>
+               </tr>
+            </span>
+        <form editable-form name="viewsForm" onaftersave="saveTable()" oncancel="cancel()">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <td style="width:45%">
+                    View Name
+                </td>
+                <td style="width:55%">
+                    <a href="#" id="view_name" editable-text="view.name" e-form="viewsForm">
+                        {{view.name}} </a>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:45%">
+                   Path
+                </td>
+                <td style="width:55%">
+                    <a href="#" id="view_path" editable-text="view.path" e-form="viewsForm">
+                       {{ view.path ||  'Path' }} </a>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:45%">
+                    Type
+                </td>
+                <td style="width:55%">
+                    <a href="#" id="view_type" editable-select="viewTypes.type" e-form="viewsForm" e-ng-options="v.value as v.text for v in viewTypes">
+                        {{ showTypes() }}
+                         </a>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:45%">
+                   Fields
+                </td>
+                <td style="width:55%">
+                    <a href="#" id="fields" editable-select="viewFields.field" e-form="viewsForm" e-ng-options="v.value as v.text for v in viewFields">
+                        {{ showFields() }}
+                        </a>
+                </td>
+            </tr>
+            </table>
+            <div class="btn-form" ng-show="viewsForm.$visible">
+                <button type="submit" ng-disabled="viewsForm.$waiting" class="btn btn-primary">save</button>
+                <button type="button" ng-disabled="viewsForm.$waiting" ng-click="viewsForm.$cancel()" class="btn btn-default">cancel</button>
+            </div>
+            </form>
+    </accordion-group>
+</accordion>
+<!--END PAGE CONTENT-->

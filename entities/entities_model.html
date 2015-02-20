@@ -1,0 +1,94 @@
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+    {{$state.current.data.pageTitle}}
+</h3>
+<div class="page-bar">
+    <!--BEGIN BREADCRUMB-->
+    <div data-ng-include="'layout/breadcrumb/breadcrumb.html'" data-ng-controller="BreadcrumbController" class="page-bar">
+    </div>
+    <!--END BREADCRUMB-->
+</div>
+<!-- END PAGE HEADER-->
+        <!--BEGIN PAGE CONTENT-->
+        <tabset justified>
+            <tab>
+                <tab-heading>General</tab-heading>
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td style="width:45%">
+                            Model Name
+                        </td>
+                        <td style="width:55%">
+                            <a href="#" id="model_name" editable-text="model.name">
+                               {{ model.name || 'Model X' }}  </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:45%">
+                            Attributes
+                        </td>
+                        <td style="width:55%">
+                            <a href="#" editable-checklist="entities.attributes" e-ng-options="e.value as e.text for e in entityAttributes">
+                                {{ showAttributes() }}
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+            </tab>
+            <tab>
+                <tab-heading>Relationships</tab-heading>
+                <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
+                    <thead>
+                    <tr>
+                        <th>
+                          Name
+                        </th>
+                        <th>
+                         Type
+                        </th>
+                        <th>
+                         Related
+                        </th>
+                        <th>
+                           Extras
+                        </th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><span editable-text="relationship.name" e-form="relationshipform">{{ relationship.name || 'Enter relationship name' }}</span></td>
+                        <td><span editable-text="relationship.type" e-form="relationshipform">{{ relationship.type || 'Enter relationship type' }}</span></td>
+                        <td><span editable-text="relationship.related" e-form="relationshipform">{{ relationship.related || 'Empty' }}</span></td>
+                        <td><span editable-text="relationship.extras" e-form="relationshipform">{{ relationship.extras || 'Empty' }}</span></td>
+                        <td style="white-space: nowrap">
+                            <!-- form -->
+                            <form editable-form name="relationshipform" onbeforesave="saveRelationship($data, user.id)" ng-show="relationshipform.$visible" class="form-buttons form-inline" shown="inserted == relationship">
+                                <button type="submit" ng-disabled="relationshipform.$waiting" class="btn btn-primary">
+                                    save
+                                </button>
+                                <button type="button" ng-disabled="relationshipform.$waiting" ng-click="relationshipform.$cancel()" class="btn btn-default">
+                                    cancel
+                                </button>
+                            </form>
+                            <div class="buttons" ng-show="!relationshipform.$visible">
+                                <button class="btn btn-primary" ng-click="relationshipform.$show()">edit</button>
+                                <button class="btn btn-danger" ng-click="removeRelationship($index)">delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </tab>
+            <tab>
+                <tab-heading>Getters and Setters</tab-heading>
+
+
+            </tab>
+            <tab>
+                <tab-heading>Scope</tab-heading>
+
+
+            </tab>
+        </tabset>
+        <!--END PAGE CONTENT-->
