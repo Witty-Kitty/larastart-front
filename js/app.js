@@ -9,7 +9,7 @@ var MetronicApp = angular.module("MetronicApp", [
     "oc.lazyLoad",
     "ngResource",
     "ngSanitize",
-    "ngMockE2E",
+    //"ngMockE2E",
     "xeditable"
 ]); 
 
@@ -64,47 +64,6 @@ MetronicApp.run(["$httpBackend","$rootScope", "settings", "$state", "editableOpt
     $rootScope.$state = $state; // state to be accessed from view
 
     editableOptions.theme = 'default';
-
-    var projectDets = [
-        {
-            "id" : 1,
-            "name" : "Larastart",
-            "module" : "Module X",
-            "entities" : "Entity X",
-            "routes" : "Route X"
-        },
-        {
-            "id" : 2,
-            "name" : "Angularjs Tutorial"
-        },
-        {
-            "id" : 3,
-            "name" : "Laravel API"
-        },
-        {
-            "id" : 4,
-            "name" : "Angular Tests"
-        }
-    ];
-
-
-    $httpBackend.whenGET('/api/v1/projects').respond(function(method, url, data){
-        console.log('all');
-        return [200, projectDets, {}];
-    })
-
-
-    $httpBackend.whenGET('/api/v1/projects/1').respond(function(method, url, data){
-        console.log('with id');
-        return [200, projectDets[0], {}];
-    });
-
-    $httpBackend.whenGET(/^layout\//).passThrough();
-    $httpBackend.whenGET(/^dashboard\//).passThrough();
-    $httpBackend.whenGET(/^projects\//).passThrough();
-    $httpBackend.whenGET(/^modules\//).passThrough();
-    $httpBackend.whenGET(/^entities\//).passThrough();
-    $httpBackend.whenGET(/^routes\//).passThrough();
 
 
 }]);

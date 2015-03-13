@@ -1,0 +1,82 @@
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+    Transformers
+</h3>
+<div class="page-bar">
+    <!--BEGIN BREADCRUMB-->
+    <div data-ng-include="'layout/breadcrumb/breadcrumb.html'" data-ng-controller="BreadcrumbController" class="page-bar">
+    </div>
+    <!--END BREADCRUMB-->
+</div>
+<!-- END PAGE HEADER-->
+<!--BEGIN PAGE CONTENT-->
+<div class="table-toolbar">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="btn-group">
+                <button class="btn btn-default" ng-click="showFormTransformer()">Add Transformer</button>
+            </div>
+        </div>
+    </div>
+</div>
+<accordion close-others="oneAtATime">
+    <accordion-group heading="{{transformer.name}} " ng-repeat="transformer in transformers">
+          <span style="float: right;">
+               <tr> <div class="btn-edit">
+                   <button type="button" class="btn btn-default" ng-show="!transformerForm.$visible" ng-click="transformerForm.$show()">
+                       edit
+                   </button>
+                   <button class="btn btn-danger"  ng-show="!transformerForm.$visible" ng-click="removeTransformer($index)">
+                       delete
+                   </button>
+               </div>
+               </tr>
+            </span>
+        <form editable-form name="transformerForm" onaftersave="saveTable()" oncancel="cancel()">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <td style="width:45%">
+                  Transformer Name
+                </td>
+                <td style="width:55%">
+                    <a href="#" id="transformer_name" editable-text="transformer.name" e-form="transformerForm">
+                        {{transformer.name}} </a>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:45%">
+                   Mapping
+                </td>
+                <td style="width:55%">
+                    <a href="#" id="transformer_mapping" editable-text="transformer.mapping" e-form="transformerForm">
+                        {{ transformer.mapping || 'Mapping' }} </a>
+                </td>
+            </tr>
+            </table>
+            <div class="btn-form" ng-show="transformerForm.$visible">
+                <button type="submit" ng-disabled="transformerForm.$waiting" class="btn btn-primary">save</button>
+                <button type="button" ng-disabled="transformerForm.$waiting" ng-click="transformerForm.$cancel()" class="btn btn-default">cancel</button>
+            </div>
+            </form>
+    </accordion-group>
+</accordion>
+<script type="text/ng-template" id="modal-transformer-form.html">
+    <div class="modal-header">
+        <h3>Add a New Transformer</h3>
+    </div>
+    <form name="form.transformerForm" ng-submit="submitForm()" novalidate>
+        <div class="modal-body">
+            <!-- NAME -->
+            <div class="form-group">
+                <label>Transformer Name</label>
+                <input type="text" name="name" class="form-control" ng-model="name" required>
+                <p ng-show="form.transformerForm.name.$invalid && !form.transformerForm.name.$pristine" class="help-block">Transformer name is required.</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" ng-disabled="form.transformerForm.$invalid">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </form>
+</script>
+<!--END PAGE CONTENT-->

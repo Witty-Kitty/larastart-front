@@ -10,10 +10,38 @@
 </div>
 <!-- END PAGE HEADER-->
 <!-- BEGIN PAGE CONTENT-->
+<div class="table-toolbar">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="btn-group">
+                <button class="btn btn-default" ng-click="showFormEntity()">Add Entity</button>
+            </div>
+        </div>
+    </div>
+</div>
 <accordion close-others="oneAtATime">
     <accordion-group heading="{{entity.name}}" ng-repeat="entity in entities">
         Project details here
-        <a href="#/entities_general/{{project.id}}">More on {{entity.name}}...</a>
+        <a href="#/entities_general/p/{{project.id}}/m/{{module._id}}/e/{{entity._id}}">More on {{entity.name}}...</a>
     </accordion-group>
 </accordion>
+<script type="text/ng-template" id="modal-entity-form.html">
+    <div class="modal-header">
+        <h3>Add a New Entity</h3>
+    </div>
+    <form name="form.entityForm" ng-submit="submitForm()" novalidate>
+        <div class="modal-body">
+            <!-- NAME -->
+            <div class="form-group">
+                <label>Entity Name</label>
+                <input type="text" name="name" class="form-control" ng-model="name" required>
+                <p ng-show="form.entityForm.name.$invalid && !form.entityForm.name.$pristine" class="help-block">Entity name is required.</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" ng-disabled="form.entityForm.$invalid">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </form>
+</script>
 <!--END PAGE CONTENT-->

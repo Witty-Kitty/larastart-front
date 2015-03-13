@@ -9,40 +9,37 @@
     <!--END BREADCRUMB-->
 </div>
 <!-- END PAGE HEADER-->
-<!--BEGIN PAGE CONTENT-->
+<!-- BEGIN PAGE CONTENT-->
 <div class="table-toolbar">
     <div class="row">
         <div class="col-md-6">
             <div class="btn-group">
-                <button class="btn btn-default" ng-click="showFormModule()">Add Module</button>
+                <button class="btn btn-default" ng-click="showFormRequest()">Add Request</button>
             </div>
         </div>
     </div>
 </div>
 <accordion close-others="oneAtATime">
-    <accordion-group ng-repeat="module in modules" >
-        <accordion-heading >
-            {{module.name}}
-        </accordion-heading>
-        Module details here...
-        <a href="#/module_general/p/{{project.id}}/m/{{module._id}}">More about {{module.name}}...</a>
+    <accordion-group heading="{{request.name}}" ng-repeat="request in requests">
+        Request details here
+        <a href="#/requests_routes/p/{{project.id}}/m/{{module._id}}/r/{{request._id}}">More on {{request.name}}...</a>
     </accordion-group>
 </accordion>
-<script type="text/ng-template" id="modal-module-form.html">
+<script type="text/ng-template" id="modal-request-form.html">
     <div class="modal-header">
-        <h3>Add a New Module</h3>
+        <h3>Add a New Request</h3>
     </div>
-    <form name="form.moduleForm" ng-submit="submitForm()" novalidate>
+    <form name="form.requestForm" ng-submit="submitForm()" novalidate>
         <div class="modal-body">
             <!-- NAME -->
             <div class="form-group">
-                <label>Module Name</label>
+                <label>Request Name</label>
                 <input type="text" name="name" class="form-control" ng-model="name" required>
-                <p ng-show="form.moduleForm.name.$invalid && !form.moduleForm.name.$pristine" class="help-block">Module name is required.</p>
+                <p ng-show="form.requestForm.name.$invalid && !form.requestForm.name.$pristine" class="help-block">Request name is required.</p>
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" ng-disabled="form.moduleForm.$invalid">OK</button>
+            <button type="submit" class="btn btn-primary" ng-disabled="form.requestForm.$invalid">OK</button>
             <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
         </div>
     </form>

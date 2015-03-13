@@ -20,7 +20,7 @@
                         </td>
                         <td style="width:55%">
                             <a href="#" id="model_name" editable-text="model.name">
-                               {{ model.name || 'Model X' }}  </a>
+                               {{ model.name }}  </a>
                         </td>
                     </tr>
                     <tr>
@@ -28,7 +28,7 @@
                             Attributes
                         </td>
                         <td style="width:55%">
-                            <a href="#" editable-checklist="entities.attributes" e-ng-options="e.value as e.text for e in entityAttributes">
+                            <a href="#" editable-checklist="entityAttributes" e-ng-options="e.value as e.text for e in entityAttributes">
                                 {{ showAttributes() }}
                             </a>
                         </td>

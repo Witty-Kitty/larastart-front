@@ -9,7 +9,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 
         // Entities_General
         .state('entities_general', {
-            url: "/entities_general/:id",
+            url: "/entities_general/p/:id/m/:mid/e/:eid",
             templateUrl: "entities/entities_general.html",
             data: {pageTitle: 'General'},
             controller: "EntitiesController",
@@ -35,7 +35,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 
         // Entities_Tables
         .state('entities_tables', {
-            url: "/entities_tables/:id",
+            url: "/entities_tables/p/:id/m/:mid/e/:eid",
             templateUrl: "entities/entities_tables.html",
             data: {pageTitle: 'Tables'},
             controller: "EntitiesController",
@@ -60,7 +60,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 
         // Entities_Seeds
         .state('entities_seeds', {
-            url: "/entities_seeds/:id",
+            url: "/entities_seeds/p/:id/m/:mid/e/:eid",
             templateUrl: "entities/entities_seeds.html",
             data: {pageTitle: 'Seeds'},
             controller: "EntitiesController",
@@ -86,7 +86,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 
         // Entities_Model
         .state('entities_model', {
-            url: "/entities_model/:id",
+            url: "/entities_model/p/:id/m/:mid/e/:eid",
             templateUrl: "entities/entities_model.html",
             data: {pageTitle: 'Model'},
             controller: "EntitiesController",

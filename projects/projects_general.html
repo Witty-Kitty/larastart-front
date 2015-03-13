@@ -21,8 +21,8 @@
                             Project Name
                         </td>
                         <td style="width:55%">
-                            <a href="#" id="project_name" editable-text="project.name">
-                                {{ project.name || 'Larastart' }} </a>
+                            <a href="#" id="project_name" editable-text="project.name" onbeforesave="saveProjectName($data, project.id)">
+                                {{ project.name }} </a>
                         </td>
 
                     </tr>
@@ -31,7 +31,7 @@
                             Version
                         </td>
                         <td style="width:55%">
-                            <a href="#" id="version" editable-radiolist="project.version" e-ng-options="p.value as p.text for p in projectVersions">
+                            <a href="#" id="version" editable-radiolist="project.version" e-ng-options="p.value as p.text for p in projectVersions" onbeforesave="saveProjectVersion($data, project.id)">
                                         {{ showVersions() }}
                             </a>
                         </td>
@@ -41,8 +41,8 @@
                             Type
                         </td>
                         <td style="width:55%">
-                            <a href="#" id="type" editable-radiolist="project.type" e-ng-options="p.value as p.text for p in projectTypes">
-                                {{ showTypes() }}
+                            <a href="#" id="type" editable-radiolist="projectType" e-ng-options="p.value as p.text for p in projectTypes">
+                                {{ showTypes() ||  project.version }}
                             </a>
                         </td>
 

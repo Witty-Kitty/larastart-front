@@ -1,0 +1,83 @@
+<!-- BEGIN PAGE HEADER-->
+<h3 class="page-title">
+    Controllers
+</h3>
+<div class="page-bar">
+    <!--BEGIN BREADCRUMB-->
+    <div data-ng-include="'layout/breadcrumb/breadcrumb.html'" data-ng-controller="BreadcrumbController" class="page-bar">
+    </div>
+    <!--END BREADCRUMB-->
+</div>
+<!-- END PAGE HEADER-->
+<!--BEGIN PAGE CONTENT-->
+<div class="table-toolbar">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="btn-group">
+                <button class="btn btn-default" ng-click="showFormController()">Add Controller</button>
+            </div>
+        </div>
+    </div>
+</div>
+<accordion close-others="oneAtATime">
+    <accordion-group heading="{{controller.name}} " ng-repeat="controller in controllers">
+        <span style="float: right;">
+               <tr> <div class="btn-edit">
+                   <button type="button" class="btn btn-default" ng-show="!controllerForm.$visible" ng-click="controllerForm.$show()">
+                       edit
+                   </button>
+                   <button class="btn btn-danger"  ng-show="!controllerForm.$visible" ng-click="removeController($index)">
+                       delete
+                   </button>
+               </div>
+               </tr>
+            </span>
+        <form editable-form name="controllerForm" onaftersave="saveTable()" oncancel="cancel()">
+        <table class="table table-bordered table-striped">
+            <tr>
+                <td style="width:45%">
+                    Controller Name
+                </td>
+                <td style="width:55%">
+                    <a href="#" id="controller_name" editable-text="controller.name" e-form="controllerForm">
+                        {{controller.name}} </a>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:45%">
+                   Data
+                </td>
+                <td style="width:55%">
+                    <a href="#" id="controller_data" editable-select="controllerData.data" e-form="controllerForm" e-ng-options="c.value as c.text for c in controllerData">
+                        {{ showData() }}
+                    </a>
+                </td>
+            </tr>
+        </table>
+            <div class="btn-form" ng-show="controllerForm.$visible">
+                <button type="submit" ng-disabled="controllerForm.$waiting" class="btn btn-primary">save</button>
+                <button type="button" ng-disabled="controllerForm.$waiting" ng-click="controllerForm.$cancel()" class="btn btn-default">cancel</button>
+            </div>
+            </form>
+    </accordion-group>
+</accordion>
+<script type="text/ng-template" id="modal-controller-form.html">
+    <div class="modal-header">
+        <h3>Add a New Controller</h3>
+    </div>
+    <form name="form.controllerForm" ng-submit="submitForm()" novalidate>
+        <div class="modal-body">
+            <!-- NAME -->
+            <div class="form-group">
+                <label>Controller Name</label>
+                <input type="text" name="name" class="form-control" ng-model="name" required>
+                <p ng-show="form.controllerForm.name.$invalid && !form.controllerForm.name.$pristine" class="help-block">Controller name is required.</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" ng-disabled="form.controllerForm.$invalid">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </form>
+</script>
+<!--END PAGE CONTENT-->

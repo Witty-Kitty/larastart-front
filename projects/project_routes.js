@@ -10,7 +10,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 
         // General
         .state('general', {
-            url: "/projects_general/:id",
+            url: "/projects_general/p/:id",
             templateUrl: "projects/projects_general.html",
             data: {pageTitle: 'General'},
             controller: "ProjectsController",
@@ -28,7 +28,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 
         // Packages
         .state('packages', {
-            url: "/projects_packages/:id",
+            url: "/projects_packages/p/:id",
             templateUrl: "projects/projects_packages.html",
             data: {pageTitle: 'Packages'},
             controller: "ProjectsController",
@@ -51,7 +51,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
 
         // Modules
         .state('modules', {
-            url: "/projects_modules/:id",
+            url: "/projects_modules/p/:id",
             templateUrl: "projects/projects_modules.html",
             data: {pageTitle: 'Modules'},
             controller: "ProjectsController",

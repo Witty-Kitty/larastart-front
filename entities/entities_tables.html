@@ -10,28 +10,40 @@
 </div>
 <!-- END PAGE HEADER-->
 <!--BEGIN PAGE CONTENT-->
+<div class="table-toolbar">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="btn-group">
+                <button class="btn btn-default" ng-click="showFormTable()">Add Table</button>
+            </div>
+        </div>
+    </div>
+</div>
 <accordion close-others="oneAtATime">
     <accordion-group heading="{{table.name}} " ng-repeat="table in tables">
         <table class="table table-striped table-hover table-bordered" id="sample_editable_1">
             <thead>
             <tr>
                 <th>
-                    Name
+                   <h3>Name</h3>
                 </th>
                 <th>
-                    Type
+                    <h3>Type</h3>
                 </th>
                 <th>
-                    Nullable
+                    <h3>Nullable</h3>
                 </th>
                 <th>
-                   Primary
+                    <h3>Primary</h3>
                 </th>
                 <th>
-                    Unique
+                    <h3>Unique</h3>
                 </th>
                 <th>
-                    Index
+                    <h3>Index</h3>
+                </th>
+                <th>
+                    <h3>Default</h3>
                 </th>
                 <th>
                 </th>
@@ -39,12 +51,23 @@
             </thead>
             <tbody>
             <tr>
-                <td><span editable-text="table.name" e-form="routeform">{{ table.name || 'Enter table name' }}</span></td>
-                <td><span editable-text="table.type" e-form="routeform">{{ table.type || 'Enter table type' }}</span></td>
-                <td><span editable-text="table.nullable" e-form="routeform">{{ table.nullable || 'Empty' }}</span></td>
-                <td><span editable-text="table.primary" e-form="routeform">{{ table.primary || 'Empty' }}</span></td>
-                <td><span editable-text="table.unique" e-form="routeform">{{ table.unique || 'Empty' }}</span></td>
-                <td><span editable-text="table.index" e-form="routeform">{{ table.index || 'Empty' }}</span></td>
+                <td><span editable-text="table.name" e-form="tableform">{{ table.name || 'Enter table name' }}</span></td>
+                <td><span editable-text="table.type" e-form="tableform">{{ table.type || 'Enter table type' }}</span></td>
+                <td><span editable-checkbox="table.nullable" e-form="tableform" >
+               {{ table.nullable && "Nullable!" || "Not nullable" }}
+                </span></td>
+                <td><span editable-checkbox="table.primary" e-form="tableform">
+                    {{ table.primary && "Primary!" || "Not primary" }}
+                </span></td>
+                <td><span editable-checkbox="table.unique" e-form="tableform" >
+                    {{ table.unique && "Unique!" || "Not unique" }}
+                </span></td>
+                <td><span editable-checkbox="table.index" e-form="tableform">
+                    {{ table.index && "Index!" || "Not index" }}
+                </span></td>
+                <td><span editable-checkbox="table.default" e-form="tableform" >
+                    {{ table.default && "Default!" || "Not default" }}
+                </span></td>
                 <td style="white-space: nowrap">
                     <!-- form -->
                     <form editable-form name="tableform" onbeforesave="saveTable($data, user.id)" ng-show="tableform.$visible" class="form-buttons form-inline" shown="inserted == table">
@@ -65,4 +88,23 @@
         </table>
     </accordion-group>
 </accordion>
+<script type="text/ng-template" id="modal-table-form.html">
+    <div class="modal-header">
+        <h3>Add a New Table</h3>
+    </div>
+    <form name="form.tableForm" ng-submit="submitForm()" novalidate>
+        <div class="modal-body">
+            <!-- NAME -->
+            <div class="form-group">
+                <label>Table Name</label>
+                <input type="text" name="name" class="form-control" ng-model="name" required>
+                <p ng-show="form.tableForm.name.$invalid && !form.tableForm.name.$pristine" class="help-block">Table name is required.</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" ng-disabled="form.tableForm.$invalid">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </form>
+</script>
 <!--END PAGE CONTENT-->

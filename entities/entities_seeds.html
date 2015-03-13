@@ -10,6 +10,15 @@
 </div>
 <!-- END PAGE HEADER-->
 <!--BEGIN PAGE CONTENT-->
+<div class="table-toolbar">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="btn-group">
+                <button class="btn btn-default" ng-click="showFormSeed()">Add Seed</button>
+            </div>
+        </div>
+    </div>
+</div>
 <accordion close-others="oneAtATime">
     <accordion-group heading="{{seed.name}} " ng-repeat="seed in seeds">
             Name:  <a href="#" id="seed_name" editable-text="seed.name"> {{ seed.name }}</a>
@@ -57,4 +66,23 @@
         </table>
     </accordion-group>
 </accordion>
+<script type="text/ng-template" id="modal-seed-form.html">
+    <div class="modal-header">
+        <h3>Add a New Seed</h3>
+    </div>
+    <form name="form.seedForm" ng-submit="submitForm()" novalidate>
+        <div class="modal-body">
+            <!-- NAME -->
+            <div class="form-group">
+                <label>Seed Name</label>
+                <input type="text" name="name" class="form-control" ng-model="name" required>
+                <p ng-show="form.seedForm.name.$invalid && !form.seedForm.name.$pristine" class="help-block">Seed name is required.</p>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" ng-disabled="form.seedForm.$invalid">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </form>
+</script>
 <!--END PAGE CONTENT-->

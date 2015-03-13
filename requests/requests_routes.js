@@ -2,22 +2,22 @@
  * Created by Kathleen on 09/02/2015.
  */
 
+
+
 MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise("/dashboard.html");
 
     $stateProvider
 
-
-
-        // Modules
-        .state('module_general', {
-            url: "/module_general/p/:id/m/:mid",
-            templateUrl: "modules/module_general.html",
-            data: {pageTitle: 'General'},
-            controller: "ModuleController",
+        // Routes
+        .state('requests_routes', {
+            url: "/requests_routes/p/:id/m/:mid/r/:rid",
+            templateUrl: "requests/requests_routes.html",
+            data: {pageTitle: 'Routes'},
+            controller: "RequestsController",
             resolve: {
-                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
                     return $ocLazyLoad.load([{
                         name: 'MetronicApp',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
@@ -28,21 +28,22 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                     }, {
                         name: 'MetronicApp',
                         files: [
-                            'modules/ModuleController.js'
+                            'requests/RequestsController.js'
                         ]
                     }]);
                 }]
             }
         })
 
-        // Modules
-        .state('module_entities', {
-            url: "/module_entities/p/:id/m/:mid",
-            templateUrl: "modules/module_entities.html",
-            data: {pageTitle: 'Entities'},
-            controller: "ModuleController",
+
+        // Controllers
+        .state('requests_controllers', {
+            url: "/requests_controllers/p/:id/m/:mid/r/:rid",
+            templateUrl: "requests/requests_controllers.html",
+            data: {pageTitle: 'Controllers'},
+            controller: "RequestsController",
             resolve: {
-                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
                     return $ocLazyLoad.load([{
                         name: 'MetronicApp',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
@@ -53,21 +54,22 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                     }, {
                         name: 'MetronicApp',
                         files: [
-                            'modules/ModuleController.js'
+                            'requests/RequestsController.js'
                         ]
                     }]);
                 }]
             }
         })
 
-        // Modules
-        .state('module_requests', {
-            url: "/module_requests/p/:id/m/:mid",
-            templateUrl: "modules/module_requests.html",
-            data: {pageTitle: 'Requests'},
-            controller: "ModuleController",
+
+        // Views
+        .state('requests_views', {
+            url: "/requests_views/p/:id/m/:mid/r/:rid",
+            templateUrl: "requests/requests_views.html",
+            data: {pageTitle: 'Views'},
+            controller: "RequestsController",
             resolve: {
-                deps: ['$ocLazyLoad', function ($ocLazyLoad) {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
                     return $ocLazyLoad.load([{
                         name: 'MetronicApp',
                         insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
@@ -78,7 +80,33 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                     }, {
                         name: 'MetronicApp',
                         files: [
-                            'modules/ModuleController.js'
+                            'requests/RequestsController.js'
+                        ]
+                    }]);
+                }]
+            }
+        })
+
+
+        // Transformers
+        .state('requests_transformers', {
+            url: "/requests_transformers/p/:id/m/:mid/r/:rid",
+            templateUrl: "requests/requests_transformers.html",
+            data: {pageTitle: 'Transformers'},
+            controller: "RequestsController",
+            resolve: {
+                deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                    return $ocLazyLoad.load([{
+                        name: 'MetronicApp',
+                        insertBefore: '#ng_load_plugins_before', // load the above css files before '#ng_load_plugins_before'
+                        files: [
+                            '../../../assets/global/plugins/angularjs/plugins/ui-select/select.min.css',
+                            '../../../assets/global/plugins/angularjs/plugins/ui-select/select.min.js'
+                        ]
+                    }, {
+                        name: 'MetronicApp',
+                        files: [
+                            'requests/RequestsController.js'
                         ]
                     }]);
                 }]
