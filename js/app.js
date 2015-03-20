@@ -9,8 +9,9 @@ var MetronicApp = angular.module("MetronicApp", [
     "oc.lazyLoad",
     "ngResource",
     "ngSanitize",
-    //"ngMockE2E",
-    "xeditable"
+    "xeditable",
+    "angular-loading-bar",
+    "angular-growl"
 ]); 
 
 /* Configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
@@ -21,7 +22,7 @@ MetronicApp.config(['$ocLazyLoadProvider', function($ocLazyLoadProvider) {
 }]);
 
 
-//AngularJS v1.3.x workaround for old style controller declarition in HTML
+//AngularJS v1.3.x workaround for old style controller declaration in HTML
 MetronicApp.config(['$controllerProvider', function($controllerProvider) {
   // this option might be handy for migrating old apps, but please don't use it
   // in new ones!
@@ -64,6 +65,5 @@ MetronicApp.run(["$httpBackend","$rootScope", "settings", "$state", "editableOpt
     $rootScope.$state = $state; // state to be accessed from view
 
     editableOptions.theme = 'default';
-
 
 }]);

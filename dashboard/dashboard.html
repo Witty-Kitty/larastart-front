@@ -2,6 +2,10 @@
 <h3 class="page-title page-full-width">
     {{$state.current.data.pageTitle}}
 </h3>
+<!-- BEGIN HEADER -->
+<div data-ng-include="'layout/header/header.html'" data-ng-controller="HeaderController" class="page-header navbar navbar-fixed-top">
+</div>
+<!-- END HEADER -->
 <div class="page-bar">
     <!--BEGIN BREADCRUMB-->
     <div data-ng-include="'layout/breadcrumb/breadcrumb.html'" data-ng-controller="BreadcrumbController" class="page-bar">
@@ -9,38 +13,57 @@
 </div>
 <!-- END PAGE HEADER-->
 <!-- BEGIN PAGE CONTENT-->
-<div class="table-toolbar">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="btn-group">
-                <button class="btn btn-default" ng-click="showFormProject()">Add Project</button>
-            </div>
-        </div>
-    </div>
+<!--<div class="table-toolbar">-->
+    <!--<div class="row">-->
+        <!--<div class="col-md-6">-->
+            <!--<div class="btn-group">-->
+                <!--<button class="btn btn-default" ng-click="showFormProject()">Add Project</button>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<!--<accordion close-others="oneAtATime">-->
+    <!--<accordion-group heading="{{project.name}}" ng-repeat="project in projects">-->
+        <!--Project details here-->
+        <!--<a href="#/projects_general/p/{{project.id}}">More on {{project.name}}...</a>-->
+    <!--</accordion-group>-->
+<!--</accordion>-->
+<div class="portlet-body">
+<table class="table table-striped table-bordered table-hover" id="sample_1">
+<thead>
+<tr>
+    <th>
+        Projects
+    </th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="project in projects | orderBy: 'name'">
+    <td>
+        <a href="#/projects_general/p/{{project.id}}">{{project.name}}</a>
+    </td>
+</tr>
+</tbody>
+</table>
 </div>
-<accordion close-others="oneAtATime">
-    <accordion-group heading="{{project.name}}" ng-repeat="project in projects">
-        Project details here
-        <a href="#/projects_general/p/{{project.id}}">More on {{project.name}}...</a>
-    </accordion-group>
-</accordion>
-<script type="text/ng-template" id="modal-project-form.html">
-    <div class="modal-header">
-        <h3>Add a New Project</h3>
-    </div>
-    <form name="form.projectForm" ng-submit="submitForm()" novalidate>
-        <div class="modal-body">
-            <!-- NAME -->
-            <div class="form-group">
-                <label>Project Name</label>
-                <input type="text" name="name" class="form-control" ng-model="name" required>
-                <p ng-show="form.projectForm.name.$invalid && !form.projectForm.name.$pristine" class="help-block">Project name is required.</p>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" ng-disabled="form.projectForm.$invalid">OK</button>
-            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
-        </div>
-    </form>
-</script>
+</div>
+<!--<script type="text/ng-template" id="modal-project-form.html">-->
+    <!--<div class="modal-header">-->
+        <!--<h3>Add a New Project</h3>-->
+    <!--</div>-->
+    <!--<form name="form.projectForm" ng-submit="submitForm()" novalidate>-->
+        <!--<div class="modal-body">-->
+            <!--<!-- NAME -->-->
+            <!--<div class="form-group">-->
+                <!--<label>Project Name</label>-->
+                <!--<input type="text" name="name" class="form-control" ng-model="name" required>-->
+                <!--<p ng-show="form.projectForm.name.$invalid && !form.projectForm.name.$pristine" class="help-block">Project name is required.</p>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="modal-footer">-->
+            <!--<button type="submit" class="btn btn-primary" ng-disabled="form.projectForm.$invalid">OK</button>-->
+            <!--<button class="btn btn-warning" ng-click="cancel()">Cancel</button>-->
+        <!--</div>-->
+    <!--</form>-->
+<!--</script>-->
 <!--END PAGE CONTENT-->

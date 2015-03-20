@@ -155,7 +155,7 @@ var ModalInstanceEntityCtrl = function ($scope, $modalInstance, $stateParams, $h
 var ModalInstanceRequestCtrl = function ($scope, $modalInstance, $http, $stateParams, requestForm) {
     $scope.form = {}
     $scope.submitForm = function () {
-        if ($scope.form.requestForm.$valid) {;
+        if ($scope.form.requestForm.$valid) {
 
             $scope.inserted = {
                 id: $scope.requests.length+1,

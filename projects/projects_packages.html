@@ -2,6 +2,10 @@
 <h3 class="page-title">
     {{$state.current.data.pageTitle}}
 </h3>
+<!-- BEGIN HEADER -->
+<div data-ng-include="'layout/header/header.html'" data-ng-controller="HeaderController" class="page-header navbar navbar-fixed-top">
+</div>
+<!-- END HEADER -->
 <div class="page-bar">
     <!--BEGIN BREADCRUMB-->
     <div data-ng-include="'layout/breadcrumb/breadcrumb.html'" data-ng-controller="BreadcrumbController" class="page-bar">
@@ -22,6 +26,7 @@
     </div>
     <accordion close-others="oneAtATime">
         <accordion-group heading="{{package0.name}}" ng-repeat="package0 in packages">
+            {{package0}}
             <span style="float: right;">
                <form editable-form name="packageform" onbeforesave="savePackage($data, package0._id)" ng-show="packageform.$visible" class="form-buttons form-inline" >
                    <button type="submit"  ng-disabled="packageform.$waiting" class="btn btn-primary">
@@ -41,34 +46,48 @@
                 <tr>
                     <td>Package Name</td><td>
                         <!-- editable username (text with validation) -->
-        <span editable-text="package0.name" e-name="name" e-form="packageform" onbeforesave="checkName($data, package.id)" e-required>
+        <span editable-text="package0.name" e-name="name" e-form="packageform" e-required>
           {{ package0.name || 'empty' }}
         </span>
                     </td></tr>
                 <tr>
                     <td>Package Version</td>
                     <td>
-        <span editable-text="package0.version" e-name="version" e-form="packageform" >
-          {{ package0.version || '2.1' }}
+        <span editable-select="package0Version.version" e-name="version" e-form="packageform" e-ng-options="p.value as p.text for p in package0Version">
+          {{ showPackageVersion() || package0.version }}
         </span>
                     </td></tr>
                 <tr>
-                    <td>Package Options</td><td>
-        <span editable-checklist="package0.options" e-name="options" onshow="loadGroups()" e-form="packageform" e-ng-options="p.value as p.text for p in packageOptions">
-          {{ showOptions() }}
-        </span>
+                    <td>Publish Options</td><td>
+          <span  editable-checkbox="package0.options.assets" e-name="publish.assets" e-form="packageform" e-title="assets"  value="assets">
+                  <i ng-show="package0.options.assets" class="icon icon-check">assets</i>
+          </span>
+                    <span editable-checkbox="package0.options.views" e-form="packageform" e-name="publish.views" e-title="views"  value="views">
+                  <i ng-show="package0.options.views" class="icon icon-check">views</i>
+          </span>
+                     <span editable-checkbox="package0.options.migrations" e-form="packageform" e-name="publish.migrations" e-title="migrations"  value="migrations">
+                  <i ng-show="package0.options.migrations" class="icon icon-check">migrations</i>
+          </span>
+                        <span editable-checkbox="package0.options.configuration" e-form="packageform" e-name="publish.configuration" e-title="configuration"  value="configuration">
+                  <i ng-show="package0.options.configuration" class="icon icon-check">configuration</i>
+          </span>
                     </td></tr>
-                <tr><td>Package Providers</td>
+                <tr><td>Providers</td>
                     <td>
-                        <span href="#" editable-textarea="package0.provider" e-form="packageform" e-name="provider" e-rows="7" e-cols="40">
-                                {{ package0.provider || 'Enter providers' }}
+                        <span href="#" editable-textarea="package0.providers" e-form="packageform" e-name="providers" e-rows="7" e-cols="40">
+                                {{ package0.providers || 'Enter providers' }}
                         </span>
                     </td></tr>
                 <tr>
-                    <td>Package Aliases</td>
-                    <td>
-                        <span href="#" editable-textarea="package0.aliases" e-form="packageform" e-name="aliases" e-rows="7" e-cols="40">
-                            {{ package0.aliases || 'Enter aliases' }}
+                    <td >Aliases</td>
+                    <td > <b>Alias:</b>
+                        <span editable-text="package0.aliases" e-form="packageform" e-name="alias">
+                            {{package0.aliases}}
+                            {{ alias.alias || 'Enter alias' }}
+                        </span><br>
+                        <b>Facade:</b>
+                        <span editable-text="package0.facade" e-form="packageform" e-name="facade">
+                            {{ package0.aliases.facade || 'Enter facade' }}
                         </span>
                     </td>
                 </tr>

@@ -9,7 +9,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
     $stateProvider
 
         // General
-        .state('general', {
+        .state('projects-general', {
             url: "/projects_general/p/:id",
             templateUrl: "projects/projects_general.html",
             data: {pageTitle: 'General'},

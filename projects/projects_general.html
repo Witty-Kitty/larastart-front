@@ -2,6 +2,10 @@
 <h3 class="page-title">
     {{$state.current.data.pageTitle}}
 </h3>
+<!-- BEGIN HEADER -->
+<div data-ng-include="'layout/header/header.html'" data-ng-controller="HeaderController" class="page-header navbar navbar-fixed-top">
+</div>
+<!-- END HEADER -->
 <div class="page-bar">
     <!--BEGIN BREADCRUMB-->
     <div data-ng-include="'layout/breadcrumb/breadcrumb.html'" data-ng-controller="BreadcrumbController" class="page-bar">
@@ -21,32 +25,31 @@
                             Project Name
                         </td>
                         <td style="width:55%">
-                            <a href="#" id="project_name" editable-text="project.name" onbeforesave="saveProjectName($data, project.id)">
+                            <a href="#" id="project_name" editable-text="project.name" onbeforesave="saveProjectName($data, project.id)" popover="click to edit" popover-trigger="mouseenter">
                                 {{ project.name }} </a>
                         </td>
 
                     </tr>
                     <tr>
                         <td style="width:45%">
-                            Version
+                           Laravel Version
                         </td>
                         <td style="width:55%">
-                            <a href="#" id="version" editable-radiolist="project.version" e-ng-options="p.value as p.text for p in projectVersions" onbeforesave="saveProjectVersion($data, project.id)">
+                            <a href="#" id="version" editable-radiolist="project.version" e-ng-options="p.value as p.text for p in projectVersions" onbeforesave="saveProjectVersion($data, project.id)" popover="click to edit" popover-trigger="mouseenter">
                                         {{ showVersions() }}
                             </a>
                         </td>
                     </tr>
-                    <tr>
-                        <td style="width:45%">
-                            Type
-                        </td>
-                        <td style="width:55%">
-                            <a href="#" id="type" editable-radiolist="projectType" e-ng-options="p.value as p.text for p in projectTypes">
-                                {{ showTypes() ||  project.version }}
-                            </a>
-                        </td>
-
-                    </tr>
+                    <!--<tr>-->
+                        <!--<td style="width:45%">-->
+                            <!--Type-->
+                        <!--</td>-->
+                        <!--<td style="width:55%">-->
+                            <!--<a href="#" id="type"  editable-radiolist="project.type" e-ng-options="p.value as p.text for p in projectTypes" onbeforesave="saveProjectType($data, project.id)" popover="click to edit" popover-trigger="mouseenter">-->
+                                <!--{{ showTypes() }}-->
+                            <!--</a>-->
+                        <!--</td>-->
+                    <!--</tr>-->
                 </table>
             </div>
         </div>

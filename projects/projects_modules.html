@@ -2,6 +2,10 @@
 <h3 class="page-title">
     {{$state.current.data.pageTitle}}
 </h3>
+<!-- BEGIN HEADER -->
+<div data-ng-include="'layout/header/header.html'" data-ng-controller="HeaderController" class="page-header navbar navbar-fixed-top">
+</div>
+<!-- END HEADER -->
 <div class="page-bar">
     <!--BEGIN BREADCRUMB-->
     <div data-ng-include="'layout/breadcrumb/breadcrumb.html'" data-ng-controller="BreadcrumbController" class="page-bar">
