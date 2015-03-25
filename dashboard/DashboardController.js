@@ -1,6 +1,6 @@
 'use strict';
 
-MetronicApp.controller('DashboardController', function($rootScope, $scope, $http, $timeout, $modal, $log, growl) {
+MetronicApp.controller('DashboardController', function($rootScope, $scope, $timeout, $modal, $log, growl, Project) {
 
     growl.addSuccessMessage('successful!');
     $scope.$on('$viewContentLoaded', function() {   
@@ -10,11 +10,10 @@ MetronicApp.controller('DashboardController', function($rootScope, $scope, $http
 
     $rootScope.sidebar = [];
 
-    $http.get("http://larastart.api/api/v1/projects")
-        .success(function(projects){
-            $scope.projects = projects;
-            growl.addSuccessMessage('successful!',{title: "success"});
-        })
+
+    var projects = Project.query(function() {
+        $scope.projects = projects;
+    });
 
     // set sidebar closed and body solid layout mode
     $rootScope.settings.layout.pageSidebarClosed = false;

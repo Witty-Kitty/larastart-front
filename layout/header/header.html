@@ -68,17 +68,17 @@
 	<!-- END PAGE TOP -->
 </div>
 <!-- END HEADER INNER -->
-<script type="text/ng-template" id="modal-project-form.html">
+<script type="text/ng-template" id="modal-form.html">
     <div class="modal-header">
-        <h3>Add a New Project</h3>
+        <h3>Add a {{modal.label}}</h3>
     </div>
     <form name="form.projectForm" ng-submit="submitForm()" novalidate>
         <div class="modal-body">
             <!-- NAME -->
             <div class="form-group">
-                <label>Project Name</label>
+                <label>{{modal.name}} Name</label>
                 <input type="text" name="name" class="form-control" ng-model="name" required>
-                <p ng-show="form.projectForm.name.$invalid && !form.projectForm.name.$pristine" class="help-block">Project name is required.</p>
+                <p ng-show="form.projectForm.name.$invalid && !form.projectForm.name.$pristine" class="help-block">{{modal.name}} name is required.</p>
             </div>
         </div>
         <div class="modal-footer">

@@ -3,7 +3,7 @@
  */
 'use strict';
 
-MetronicApp.controller('ProjectsController', function ($rootScope, $scope, $http, $timeout, projectService, $stateParams, $filter, $modal, $log, growl) {
+MetronicApp.controller('ProjectsController', function ($rootScope, $scope, $timeout, $stateParams, $filter, $modal, $log, growl, Project, Package, Module, $state ) {
 
     $scope.$on('$viewContentLoaded', function () {
         Metronic.initAjax(); // initialize core components
@@ -16,6 +16,34 @@ MetronicApp.controller('ProjectsController', function ($rootScope, $scope, $http
         growl.addErrorMessage("Oops! Something went wrong. Try again?");
     }
 
+    //var projects = Project.query(function() {
+    //    console.log(projects);
+    //    $scope.projects = projects;
+    //});
+
+    var project = Project.get({ id: $stateParams.id }, function() {
+        $scope.project = project;
+
+        $rootScope.crumbs = [{
+            link: "#/dashboard.html",
+            name: "Home"
+        },
+            {
+                link: "#/projects_general/p/" + $stateParams.id,
+                name: $scope.project['name']
+            }]
+
+
+    })
+
+    var packages = Package.query(function() {
+        $scope.packages = packages;
+        console.log($scope.packages);
+    });
+
+    var modules = Module.query(function() {
+        $scope.modules = modules;
+    });
 
     $rootScope.creations = [{
         formMethod: "showFormPackage()",
@@ -52,35 +80,6 @@ MetronicApp.controller('ProjectsController', function ($rootScope, $scope, $http
             uri: "#/projects_modules/p/" + $stateParams.id
         }]
 
-
-    $http.get("http://larastart.api/api/v1/projects/" + $stateParams.id)
-        .success(function (project) {
-            $scope.project = project;
-
-            $rootScope.crumbs = [{
-                link: "#/dashboard.html",
-                name: "Home"
-            },
-                {
-                    link: "#/projects_general/p/" + $stateParams.id,
-                    name: $scope.project['name']
-                }]
-
-        })
-
-
-
-    $http.get("http://larastart.api/api/v1/projects/" + $stateParams.id + "/packages")
-        .success(function (packages) {
-            $scope.packages = packages;
-
-        })
-
-    $http.get("http://larastart.api/api/v1/projects/" + $stateParams.id + "/modules")
-        .success(function (modules) {
-            $scope.modules = modules;
-
-        })
 
     // set sidebar closed and body solid layout mode
     $rootScope.settings.layout.pageSidebarClosed = false;
@@ -205,68 +204,52 @@ MetronicApp.controller('ProjectsController', function ($rootScope, $scope, $http
             name: data
         }
 
-        var responsePromise = $http.put("http://larastart.api/api/v1/projects/" + id, dataObject, {});
-        responsePromise.success(function (dataFromServer, status, headers, config) {
-            console.log('hello there!');
-            growl.addSuccessMessage('successful!');
-        });
+           $scope.project.data = dataObject;
+           $scope.project.$update(function() {
 
-        responsePromise.error(function (data, status, headers, config) {
+                   var project = Project.get({ id: id }, function() {
+                       console.log(project);
+                       $scope.project = project;
 
-        });
+                   $rootScope.crumbs = [{
+                       link: "#/dashboard.html",
+                       name: "Home"
+                   },
+                       {
+                           link: "#/projects_general/p/" + $stateParams.id,
+                           name: $scope.project['name']
+                       }]
+
+                   })
+        })
+
     }
-
-    ////update package
-    //$scope.savePackageName = function(data, id, pid){
-    //
-    //    var dataObject = {
-    //        name : data
-    //    }
-    //
-    //    console.log(id);
-    //    console.log(pid);
-    //    console.log(dataObject);
-    //    //var responsePromise = $http.put("http://larastart.api/api/v1/projects/"+id+"/packages/"+pid, dataObject, {});
-    //    //responsePromise.success(function(dataFromServer, status, headers, config) {
-    //    //
-    //    //});
-    //    //
-    //    //responsePromise.error(function(data, status, headers, config) {
-    //    //
-    //    //});
-    //}
 
     $scope.saveProjectVersion = function (data, id) {
         var dataObject = {
             version: data
         }
-        console.log(dataObject);
-        console.log("http://larastart.api/api/v1/projects/" + id);
-        var responsePromise = $http.put("http://larastart.api/api/v1/projects/" + id, dataObject, {});
-        responsePromise.success(function (dataFromServer, status, headers, config) {
-        });
 
-        responsePromise.error(function (data, status, headers, config) {
-        });
+        $scope.project.data = dataObject;
+        $scope.project.$update(function() {
+
+        })
     }
 
     $scope.saveProjectType = function (data, id) {
         var dataObject = {
             type: data
         }
-        console.log(dataObject);
-        console.log("http://larastart.api/api/v1/projects/" + id);
-        var responsePromise = $http.put("http://larastart.api/api/v1/projects/" + id, dataObject, {});
-        responsePromise.success(function (dataFromServer, status, headers, config) {
-        });
 
-        responsePromise.error(function (data, status, headers, config) {
-        });
+        $scope.project.data = dataObject;
+        $scope.project.$update(function() {
+
+        })
     }
 
     //update package
     $scope.savePackage = function (data, id) {
-        //$scope.user not updated yet
+
         angular.extend(data, {id: id});
         console.log(data);
         var dataObject = {
@@ -285,31 +268,37 @@ MetronicApp.controller('ProjectsController', function ($rootScope, $scope, $http
             //]
         };
 
-        console.log(dataObject);
+
         console.log(id);
-        console.log("http://larastart.api/api/v1/projects/" + $stateParams.id + "/packages/" + id);
-        var responsePromise = $http.put("http://larastart.api/api/v1/projects/" + $stateParams.id + "/packages/" + id, dataObject, {});
-        responsePromise.success(function (dataFromServer, status, headers, config) {
-            alert("Success");
-        });
 
-        responsePromise.error(function (data, status, headers, config) {
-            alert("No luck :-(");
-        });
+        var package0 = Package.get({id: id}, function() {
+            $scope.package0 = package0;
 
-    }
+            $scope.package0.name = data['name'];
+            //$scope.package0.version = data['version'];
+            $scope.package0.options = [{
+                assets: data['publish.assets'],
+                views: data['publish.views'],
+                configuration: data['publish.configuration'],
+                migrations: data['publish.migrations']
+            }];
+            $scope.package0.$update(function () {
+
+            })
+        })
+
+        }
 
     // remove package
     $scope.removePackage = function (index, id) {
         $scope.packages.splice(index, 1);
 
-        console.log("http://larastart.api/api/v1/projects/" + $stateParams.id + "/packages/" + id);
+        var package0 = Package.get({id: id}, function() {
+            $scope.package0 = package0;
+            $scope.package0.$delete(function () {
 
-        $http.delete("http://larastart.api/api/v1/projects/" + $stateParams.id + "/packages/" + id)
-            .success(function (package1) {
-                $scope.package1 = package1;
-
-            })
+            });
+        });
 
     };
 
