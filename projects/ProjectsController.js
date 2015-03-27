@@ -53,32 +53,24 @@ MetronicApp.controller('ProjectsController', function ($rootScope, $scope, $time
         name: "New Module"
     }]
 
-    $scope.sideTab = [{
-        page: "General"
-    }, {
-        page: "Packages"
-
-    }, {
-        page: "Modules"
-    }]
-
 
     $rootScope.sidebar = [
         {
             icon: "briefcase",
-            title: $scope.sideTab[0]["page"],
+            title: 'General',
             uri: "#/projects_general/p/" + $stateParams.id
         },
         {
             icon: "puzzle",
             title: "Packages",
             uri: "#/projects_packages/p/" + $stateParams.id
-        },
-        {
-            icon: "refresh",
-            title: "Modules",
-            uri: "#/projects_modules/p/" + $stateParams.id
-        }]
+        }
+        //{
+        //    icon: "refresh",
+        //    title: "Modules",
+        //    uri: "#/projects_modules/p/" + $stateParams.id
+        //}
+    ]
 
 
     // set sidebar closed and body solid layout mode
@@ -200,15 +192,10 @@ MetronicApp.controller('ProjectsController', function ($rootScope, $scope, $time
     //update project
     $scope.saveProjectName = function (data, id) {
 
-        var dataObject = {
-            name: data
-        }
-
-           $scope.project.data = dataObject;
+           $scope.project.name = data;
            $scope.project.$update(function() {
 
                    var project = Project.get({ id: id }, function() {
-                       console.log(project);
                        $scope.project = project;
 
                    $rootScope.crumbs = [{
@@ -226,15 +213,26 @@ MetronicApp.controller('ProjectsController', function ($rootScope, $scope, $time
     }
 
     $scope.saveProjectVersion = function (data, id) {
-        var dataObject = {
-            version: data
-        }
 
-        $scope.project.data = dataObject;
+        $scope.project.version = data;
         $scope.project.$update(function() {
 
         })
     }
+
+    $scope.saveProjectSlug = function (data, id) {
+
+        //var dataObject = {
+        //    slug: data
+        //}
+
+        $scope.project.slug = data;
+        $scope.project.$update(function() {
+
+        })
+
+    }
+
 
     $scope.saveProjectType = function (data, id) {
         var dataObject = {

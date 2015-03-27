@@ -28,7 +28,6 @@
                             <a href="#" id="project_name" editable-text="project.name" onbeforesave="saveProjectName($data, project.id)" popover="click to edit" popover-trigger="mouseenter">
                                 {{ project.name }} </a>
                         </td>
-
                     </tr>
                     <tr>
                         <td style="width:45%">
@@ -38,6 +37,15 @@
                             <a href="#" id="version" editable-radiolist="project.version" e-ng-options="p.value as p.text for p in projectVersions" onbeforesave="saveProjectVersion($data, project.id)" popover="click to edit" popover-trigger="mouseenter">
                                         {{ showVersions() }}
                             </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:45%">
+                            Project Slug
+                        </td>
+                        <td style="width:55%">
+                            <a href="#" id="slug" editable-text="project.slug" onbeforesave="saveProjectSlug($data, project.id)" popover="click to edit" popover-trigger="mouseenter">
+                                {{ project.slug }} </a>
                         </td>
                     </tr>
                     <!--<tr>-->

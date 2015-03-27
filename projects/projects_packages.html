@@ -25,7 +25,7 @@
         </div>
     </div>
     <accordion close-others="oneAtATime">
-        <accordion-group heading="{{package0.name}}" ng-repeat="package0 in packages">
+        <accordion-group heading="{{package0.name}}" ng-repeat="package0 in packages | orderBy: 'name'">
             {{package0.aliases[0]['alias']}}
             <span style="float: right;">
                <form editable-form name="packageform" onbeforesave="savePackage($data, package0._id)" ng-show="packageform.$visible" class="form-buttons form-inline" >
