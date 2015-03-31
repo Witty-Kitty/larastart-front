@@ -31,7 +31,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
             url: "/projects_packages/p/:id",
             templateUrl: "projects/projects_packages.html",
             data: {pageTitle: 'Packages'},
-            controller: "ProjectsController",
+            controller: "ProjectsPackagesController",
             resolve: {
                 deps: ['$ocLazyLoad', function($ocLazyLoad) {
                     return $ocLazyLoad.load([{
@@ -42,7 +42,7 @@ MetronicApp.config(['$stateProvider', '$urlRouterProvider', function($stateProvi
                     }, {
                         name: 'MetronicApp',
                         files: [
-                            'projects/ProjectsController.js'
+                            'projects/ProjectsPackagesController.js'
                         ]
                     }]);
                 }]

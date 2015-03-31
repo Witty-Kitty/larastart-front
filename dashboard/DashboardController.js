@@ -1,6 +1,6 @@
 'use strict';
 
-MetronicApp.controller('DashboardController', function($rootScope, $scope, $timeout, $modal, $log, growl, Project) {
+MetronicApp.controller('DashboardController', function($rootScope, $scope, $timeout, $modal, $log, growl, Project, confirm) {
 
     growl.addSuccessMessage('successful!');
     $scope.$on('$viewContentLoaded', function() {   
@@ -37,6 +37,28 @@ MetronicApp.controller('DashboardController', function($rootScope, $scope, $time
         name: "New Project"
     }]
 
+    $scope.archive = function (id) {
+        confirm( "Are you sure you want to archive?" ).then(
+            function( response ) {
+                console.log(id);
+                $scope.project.$delete(function() {
+
+                })
+                console.log( "Confirm accomplished with", response );
+            },
+            function() {
+                console.log( "Confirm failed :(" );
+            }
+        );
+    };
+
+    $scope.modal =  {
+        label : 'New Project',
+        name : 'Project',
+        object: new Project,
+        state: 'view-project'
+    };
+
     //$scope.showFormProject = function () {
     //
     //    var modalInstance = $modal.open({
@@ -58,8 +80,8 @@ MetronicApp.controller('DashboardController', function($rootScope, $scope, $time
     //};
 })
 
-
-//var ModalInstanceProjectCtrl = function ($scope, $modalInstance, $http, projectForm) {
+//
+//var ModalInstanceCtrl = function ($scope, $modalInstance, $http, projectForm) {
 //    $scope.form = {}
 //    $scope.submitForm = function () {
 //        if ($scope.form.projectForm.$valid) {
@@ -78,6 +100,7 @@ MetronicApp.controller('DashboardController', function($rootScope, $scope, $time
 //
 //            var responsePromise = $http.post("http://larastart.api/api/v1/projects", dataObject, {});
 //            responsePromise.success(function(dataFromServer, status, headers, config) {
+//                console.log('It works!');
 //            });
 //
 //            responsePromise.error(function(data, status, headers, config) {

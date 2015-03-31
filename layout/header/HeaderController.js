@@ -18,33 +18,35 @@ MetronicApp.controller('HeaderController', ['$scope', '$modal', '$log', '$timeou
         $scope.projects = projects;
     });
 
-    $scope.modal =  [{
-        label : 'New Project',
-        name : 'Project',
-        object: new Project,
-        state: 'view-project'
-    },{
-        label : 'New Package',
-        name : 'Package',
-        object: new Package,
-        state: 'view-package'
-    },{
-        label : 'New Module',
-        name : 'Module',
-        object: new Module,
-        state: 'view-module'
-    }];
+    //$scope.modal =  {
+    //    label : 'New Project',
+    //    name : 'Project',
+    //    object: new Project,
+    //    state: 'view-project'
+    //};
+    // ,{
+    //    label : 'New Package',
+    //    name : 'Package',
+    //    object: new Package,
+    //    state: 'view-package'
+    //},{
+    //    label : 'New Module',
+    //    name : 'Module',
+    //    object: new Module,
+    //    state: 'view-module'
+    //}
 
 
-    $scope.showFormProject = function () {
+
+    $scope.showForm = function () {
 
         var modalInstance = $modal.open({
             templateUrl: 'modal-form.html',
-            controller: ModalInstanceProjectCtrl,
+            controller: ModalInstanceCtrl,
             scope: $scope,
             resolve: {
-                projectForm: function () {
-                    return $scope.projectForm;
+                Form: function () {
+                    return $scope.Form;
                 }
             }
         });
@@ -58,10 +60,10 @@ MetronicApp.controller('HeaderController', ['$scope', '$modal', '$log', '$timeou
 
 }]);
 
-var ModalInstanceProjectCtrl = function ($scope, $modalInstance, $http, projectForm, $state, growl) {
+var ModalInstanceCtrl = function ($scope, $modalInstance, $http, Form, $state, growl) {
     $scope.form = {}
     $scope.submitForm = function () {
-        if ($scope.form.projectForm.$valid) {
+        if ($scope.form.Form.$valid) {
 
             $scope.inserted = {
                 id: $scope.projects.length+1,

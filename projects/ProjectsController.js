@@ -36,23 +36,21 @@ MetronicApp.controller('ProjectsController', function ($rootScope, $scope, $time
 
     })
 
-    var packages = Package.query(function() {
-        $scope.packages = packages;
-        console.log($scope.packages);
-    });
-
-    var modules = Module.query(function() {
-        $scope.modules = modules;
-    });
+    //var modules = Module.query(function() {
+    //    $scope.modules = modules;
+    //});
 
     $rootScope.creations = [{
         formMethod: "showFormPackage()",
         name: "New Package"
-    },{
-        formMethod: "showFormModule()",
-        name: "New Module"
     }]
 
+    $scope.modal =  {
+        label : 'New Package',
+        name : 'Package',
+        object: new Package,
+        state: 'view-package'
+    };
 
     $rootScope.sidebar = [
         {
@@ -76,29 +74,29 @@ MetronicApp.controller('ProjectsController', function ($rootScope, $scope, $time
     // set sidebar closed and body solid layout mode
     $rootScope.settings.layout.pageSidebarClosed = false;
 
-    $scope.packageOptions = [{
-        value: "assets",
-        text: "Assets"
-    }, {
-        value: "views",
-        text: "Views"
-    }, {
-        value: "migrations",
-        text: "Migrations"
-    }, {
-        value: "configuration",
-        text: "Configuration"
-    }];
+    //$scope.packageOptions = [{
+    //    value: "assets",
+    //    text: "Assets"
+    //}, {
+    //    value: "views",
+    //    text: "Views"
+    //}, {
+    //    value: "migrations",
+    //    text: "Migrations"
+    //}, {
+    //    value: "configuration",
+    //    text: "Configuration"
+    //}];
 
-    $scope.showOptions = function () {
-        var selected = [];
-        angular.forEach($scope.packageOptions, function (p) {
-            if ($scope.packages.options.indexOf(p.value) >= 0) {
-                selected.push(p.text);
-            }
-        });
-        return selected.length ? selected.join(', ') : 'Not set';
-    };
+    //$scope.showOptions = function () {
+    //    var selected = [];
+    //    angular.forEach($scope.packageOptions, function (p) {
+    //        if ($scope.packages.options.indexOf(p.value) >= 0) {
+    //            selected.push(p.text);
+    //        }
+    //    });
+    //    return selected.length ? selected.join(', ') : 'Not set';
+    //};
 
     $scope.projectTypes = [
         {value: "api", text: 'API'},
@@ -120,18 +118,18 @@ MetronicApp.controller('ProjectsController', function ($rootScope, $scope, $time
         return ($scope.project.version && selected.length) ? selected[0].text : 'Not set';
     };
 
-    $scope.package0Version = [{
-        value: "5.0",
-        text: "5.0"
-    }, {
-        value: "4.2",
-        text: "4.2"
-    }];
-
-    $scope.showPackageVersion = function () {
-        var selected = $filter('filter')($scope.package0Version, {value: $scope.package0Version.version});
-        return ($scope.package0Version.version && selected.length) ? selected[0].text : 'Not set';
-    };
+    //$scope.package0Version = [{
+    //    value: "5.0",
+    //    text: "5.0"
+    //}, {
+    //    value: "4.2",
+    //    text: "4.2"
+    //}];
+    //
+    //$scope.showPackageVersion = function () {
+    //    var selected = $filter('filter')($scope.package0Version, {value: $scope.package0Version.version});
+    //    return ($scope.package0Version.version && selected.length) ? selected[0].text : 'Not set';
+    //};
 
     //Accordion code
     $scope.oneAtATime = true;
@@ -222,10 +220,6 @@ MetronicApp.controller('ProjectsController', function ($rootScope, $scope, $time
 
     $scope.saveProjectSlug = function (data, id) {
 
-        //var dataObject = {
-        //    slug: data
-        //}
-
         $scope.project.slug = data;
         $scope.project.$update(function() {
 
@@ -235,70 +229,67 @@ MetronicApp.controller('ProjectsController', function ($rootScope, $scope, $time
 
 
     $scope.saveProjectType = function (data, id) {
-        var dataObject = {
-            type: data
-        }
 
-        $scope.project.data = dataObject;
+        $scope.project.type = data;
         $scope.project.$update(function() {
 
         })
     }
 
-    //update package
-    $scope.savePackage = function (data, id) {
-
-        angular.extend(data, {id: id});
-        console.log(data);
-        var dataObject = {
-            name: data['name'],
-            //version  : data['version'],
-            options: {
-                assets: data['publish.assets'],
-                views: data['publish.views'],
-                configuration: data['publish.configuration'],
-                migrations: data['publish.migrations']
-            }
-            //providers: data['providers'],
-            //aliases: [
-            //    {alias: data['alias']},
-            //    {facade: data['facade']}
-            //]
-        };
-
-
-        console.log(id);
-
-        var package0 = Package.get({id: id}, function() {
-            $scope.package0 = package0;
-
-            $scope.package0.name = data['name'];
-            //$scope.package0.version = data['version'];
-            $scope.package0.options = [{
-                assets: data['publish.assets'],
-                views: data['publish.views'],
-                configuration: data['publish.configuration'],
-                migrations: data['publish.migrations']
-            }];
-            $scope.package0.$update(function () {
-
-            })
-        })
-
-        }
-
-    // remove package
-    $scope.removePackage = function (index, id) {
-        $scope.packages.splice(index, 1);
-
-        var package0 = Package.get({id: id}, function() {
-            $scope.package0 = package0;
-            $scope.package0.$delete(function () {
-
-            });
-        });
-
-    };
+    ////update package
+    //$scope.savePackage = function (data, id) {
+    //
+    //    angular.extend(data, {id: id});
+    //    console.log(data);
+    //    var dataObject = {
+    //        name: data['name'],
+    //        //version  : data['version'],
+    //        options: {
+    //            assets: data['publish.assets'],
+    //            views: data['publish.views'],
+    //            configuration: data['publish.configuration'],
+    //            migrations: data['publish.migrations']
+    //        }
+    //        //providers: data['providers'],
+    //        //aliases: [
+    //        //    {alias: data['alias']},
+    //        //    {facade: data['facade']}
+    //        //]
+    //    };
+    //
+    //
+    //    console.log(id);
+    //
+    //    var package0 = Package.get({id: id}, function() {
+    //        $scope.package0 = package0;
+    //
+    //        $scope.package0.name = data['name'];
+    //        //$scope.package0.version = data['version'];
+    //        $scope.package0.options = [{
+    //            assets: data['publish.assets'],
+    //            views: data['publish.views'],
+    //            configuration: data['publish.configuration'],
+    //            migrations: data['publish.migrations']
+    //        }];
+    //        $scope.package0.$update(function () {
+    //
+    //        })
+    //    })
+    //
+    //    }
+    //
+    //// remove package
+    //$scope.removePackage = function (index, id) {
+    //    $scope.packages.splice(index, 1);
+    //
+    //    var package0 = Package.get({id: id}, function() {
+    //        $scope.package0 = package0;
+    //        $scope.package0.$delete(function () {
+    //
+    //        });
+    //    });
+    //
+    //};
 
 });
 

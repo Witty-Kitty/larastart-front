@@ -54,8 +54,8 @@
 			<i class="fa fa-plus"></i>&nbsp;<span class="hidden-sm hidden-xs">New&nbsp;</span>&nbsp;<i class="fa fa-angle-down"></i>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-                <li ng-click="showFormProject()">
-                   <a href="#" > <i class="icon-docs"></i> New Project {{creation.formMethod}} </a>
+                <li ng-click="showForm()">
+                   <a href="#" > <i class="icon-docs"></i> {{modal.label}} </a>
                 </li>
 			</ul>
 		</div>
@@ -72,17 +72,17 @@
     <div class="modal-header">
         <h3>Add a {{modal.label}}</h3>
     </div>
-    <form name="form.projectForm" ng-submit="submitForm()" novalidate>
+    <form name="form.Form" ng-submit="submitForm()" novalidate>
         <div class="modal-body">
             <!-- NAME -->
             <div class="form-group">
                 <label>{{modal.name}} Name</label>
                 <input type="text" name="name" class="form-control" ng-model="name" required>
-                <p ng-show="form.projectForm.name.$invalid && !form.projectForm.name.$pristine" class="help-block">{{modal.name}} name is required.</p>
+                <p ng-show="form.Form.name.$invalid && !form.Form.name.$pristine" class="help-block">{{modal.name}} name is required.</p>
             </div>
         </div>
         <div class="modal-footer">
-            <button type="submit" class="btn btn-primary" ng-disabled="form.projectForm.$invalid">OK</button>
+            <button type="submit" class="btn btn-primary" ng-disabled="form.Form.$invalid">OK</button>
             <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
         </div>
     </form>
