@@ -60,18 +60,28 @@ MetronicApp.controller('HeaderController', ['$scope', '$modal', '$log', '$timeou
 
 }]);
 
-var ModalInstanceCtrl = function ($scope, $modalInstance, $http, Form, $state, growl) {
+var ModalInstanceCtrl = function ($scope, $modalInstance, Form, $state,  $stateParams, growl) {
     $scope.form = {}
     $scope.submitForm = function () {
         if ($scope.form.Form.$valid) {
 
-            $scope.inserted = {
-                id: $scope.projects.length+1,
-                name: $scope.name,
-                status: null,
-                group: null
-            };
-            $scope.projects.push($scope.inserted);
+            console.log( $stateParams.id);
+            $scope.modal.object.$save(function(){
+                console.log($scope.modal.object);
+                $modalInstance.close('closed');
+                $state.go($scope.modal.state,{id:$scope.modal.object.id});
+                $scope.modal = {};
+            });
+
+            return;
+
+            //$scope.inserted = {
+            //    id: $scope.projects.length+1,
+            //    name: $scope.name,
+            //    status: null,
+            //    group: null
+            //};
+            //$scope.projects.push($scope.inserted);
 
             var dataObject = {
                 name : $scope.name,
@@ -99,5 +109,6 @@ var ModalInstanceCtrl = function ($scope, $modalInstance, $http, Form, $state, g
     $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
     };
+
 };
 

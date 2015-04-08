@@ -41,8 +41,17 @@ MetronicApp.controller('DashboardController', function($rootScope, $scope, $time
         confirm( "Are you sure you want to archive?" ).then(
             function( response ) {
                 console.log(id);
-                $scope.project.$delete(function() {
 
+                var project = Project.get({ id: id }, function() {
+                    $scope.project = project;
+
+                    $scope.project.$archive(function() {
+
+                        var projects = Project.query(function() {
+                            $scope.projects = projects;
+                        });
+
+                    })
                 })
                 console.log( "Confirm accomplished with", response );
             },
@@ -56,7 +65,7 @@ MetronicApp.controller('DashboardController', function($rootScope, $scope, $time
         label : 'New Project',
         name : 'Project',
         object: new Project,
-        state: 'view-project'
+        state: 'projects-general'
     };
 
     //$scope.showFormProject = function () {

@@ -12,10 +12,8 @@ MetronicApp.controller('ProjectsPackagesController', function($scope, $statePara
         label : 'New Package',
         name : 'Package',
         object: new Package,
-        state: 'view-package'
+        state: 'packages'
     };
-
-    console.log('Hello World!');
 
     var project = Project.get({ id: $stateParams.id }, function() {
         $scope.project = project;

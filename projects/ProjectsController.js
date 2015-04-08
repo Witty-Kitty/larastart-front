@@ -3,7 +3,7 @@
  */
 'use strict';
 
-MetronicApp.controller('ProjectsController', function ($rootScope, $scope, $timeout, $stateParams, $filter, $modal, $log, growl, Project, Package, Module, $state ) {
+MetronicApp.controller('ProjectsController', function ($rootScope, $scope, $timeout, $stateParams, $filter, $modal, $log, growl, Project, Package, Module, $state, confirm ) {
 
     $scope.$on('$viewContentLoaded', function () {
         Metronic.initAjax(); // initialize core components
@@ -49,7 +49,7 @@ MetronicApp.controller('ProjectsController', function ($rootScope, $scope, $time
         label : 'New Package',
         name : 'Package',
         object: new Package,
-        state: 'view-package'
+        state: 'packages'
     };
 
     $rootScope.sidebar = [
@@ -235,6 +235,28 @@ MetronicApp.controller('ProjectsController', function ($rootScope, $scope, $time
 
         })
     }
+
+    $scope.archive = function (id) {
+        confirm( "Are you sure you want to archive?" ).then(
+            function( response ) {
+                console.log(id);
+
+                var project = Project.get({ id: id }, function() {
+                    $scope.project = project;
+
+                    $scope.project.$archive(function() {
+
+                        $state.go('dashboard');
+
+                    })
+                })
+                console.log( "Confirm accomplished with", response );
+            },
+            function() {
+                console.log( "Confirm failed :(" );
+            }
+        );
+    };
 
     ////update package
     //$scope.savePackage = function (data, id) {

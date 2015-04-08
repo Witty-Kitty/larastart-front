@@ -8,7 +8,8 @@ MetronicApp.factory('Project', function($resource) {
             method: 'PUT'
         },
         archive: {
-            method: 'DELETE'
+            method: 'DELETE',
+            url: 'http://larastart.api/api/v1/projects/:id/archive'
         }
     });
 });
